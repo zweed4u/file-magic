@@ -12,7 +12,7 @@ vpn_ip = ipv4 = (
 )
 PORT = 9003
 print(
-    f"Run `nc -lvnp {port}` will need to be used when waiting for reverse shell callback"
+    f"Run `nc -lvnp {PORT}` will need to be used when waiting for reverse shell callback"
 )
 
 types_files = {
